@@ -8,28 +8,52 @@
  *
  * Main module of the application.
  */
-angular
-  .module('pkuRunnerApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+angular.module('pkuRunnerApp', ['ui.router','ngResource','ngDialog'])
+.config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+        
+            // route for the home page
+            .state('app', {
+                url:'/',
+                views: {
+                    'header': {
+                        templateUrl : 'views/header.html',
+                    },
+                    'content': {
+                        templateUrl : 'views/main.html',
+                        controller  : 'MainCtrl'
+                    },
+                    'footer': {
+                        templateUrl : 'views/footer.html',
+                    }
+                }
+
+            })
+        
+            // route for the aboutus page
+            .state('app.about', {
+                url:'about',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/about.html',
+                        controller  : 'AboutCtrl'                  
+                    }
+                }
+            })
+        
+            // route for the contactus page
+            .state('app.contact', {
+                url:'contact',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/contact.html',
+                        controller  : 'ContactCtrl'                  
+                    }
+                }
+            });
+        
+
+    
+        $urlRouterProvider.otherwise('/');
+    })
+;
