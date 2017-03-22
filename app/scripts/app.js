@@ -50,6 +50,17 @@ angular.module('pkuRunnerApp', ['ui.router','ngResource','ngDialog'])
                         controller  : 'ContactCtrl'                  
                     }
                 }
+            })
+    
+            // route for the admin page
+            .state('app.admin', {
+                url:'admin',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/admin.html',
+                        controller  : 'AdminCtrl'                  
+                    }
+                }
             });
         
 
