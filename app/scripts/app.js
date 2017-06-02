@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('pkuRunnerApp', ['ui.router','ngResource','ngDialog'])
+angular.module('pkuRunnerApp', ['ui.router','ngResource','ngDialog', 'smart-table'])
 .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
         
