@@ -1,12 +1,4 @@
 <div class="container" ng-controller="AdminCtrl">
-<div class="jumbotron">
-  <h1>Welcome in, friends!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    This website supported by Yeoman!
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
     
     
     <div class="col-xs-12" ng-if="!showTable">
@@ -14,15 +6,15 @@
     </div>
     <div class="col-xs-12" ng-if="showTable">
     
-        <table class="table table-hover">
+        <table st-table="records" class="table table-hover">
             <caption>Record Database</caption>
             <thead>
                 <tr>
                     <th>recordID</th>
-                    <th>userID</th>
-                    <th>date</th>
-                    <th>distance</th>
-                    <th>duration</th>
+                    <th st-sort="userId">userID</th>
+                    <th st-sort="date">date</th>
+                    <th st-sort="distance">distance</th>
+                    <th st-sort="duration">duration</th>
                     <th>invalidReason</th>
                     <th>step</th>
                     <th>type</th>

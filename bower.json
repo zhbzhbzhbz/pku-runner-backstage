@@ -14,7 +14,8 @@
     "ng-dialog": "^1.0.1"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.0"
+    "angular-mocks": "^1.4.0",
+    "angular-smart-table": "^2.1.8"
   },
   "appPath": "app",
   "moduleName": "pkuRunnerApp",
