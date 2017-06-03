@@ -1,68 +1,72 @@
 <div class="container" ng-controller="AdminCtrl">
-    
-    
-    <div class="col-xs-12" ng-if="!showTable">
-        <h3>{{message}}</h3>
-    </div>
-    <div class="col-xs-12" ng-if="showTable">
-    
-        <table st-table="records" class="table table-hover">
-            <caption>Record Database</caption>
-            <thead>
-                <tr>
-                    <th>recordID</th>
-                    <th st-sort="userId">userID</th>
-                    <th st-sort="date">date</th>
-                    <th st-sort="distance">distance</th>
-                    <th st-sort="duration">duration</th>
-                    <th>invalidReason</th>
-                    <th>step</th>
-                    <th>type</th>
-                    <th>verified</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="record in records">
-                    <td>{{record.recordId}}</td>
-                    <td>{{record.userId}}</td>
-                    <td>{{record.date}}</td>
-                    <td>{{record.distance}}</td>
-                    <td>{{record.duration}}</td>
-                    <td>{{record.invalidReason}}</td>
-                    <td>{{record.step}}</td>
-                    <td>{{record.type}}</td>
-                    <td>{{record.verified}}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-    </div>
-    
     <div class="col-xs-12" ng-if="!showTableB">
         <h3>{{messageB}}</h3>
     </div>
     <div class="col-xs-12" ng-if="showTableB">
-    
-        <table class="table table-hover">
-            <caption>User Database</caption>
+        <table st-table="users" class="table table-striped">
+            <caption>用户列表</caption>
             <thead>
                 <tr>
-                    <th>name</th>
-                    <th>id</th>
-                    <th>sex</th>
+                    <th st-sort="name">姓名</th>
+                    <th st-sort="id">学号</th>
+                    <th st-sort="sex">性别</th>
+                </tr>
+                <tr>
+                    <th>
+                        <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="user in users">
                     <td>{{user.name}}</td>
                     <td>{{user.id}}</td>
-                    <td>{{user.sex}}</td>
+                    <td ng-switch on="user.sex">
+                        <span ng-switch-default>未知</span>
+                        <span ng-switch-when="1">男</span>
+                        <span ng-switch-when="2">女</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
     
     </div>
-
     
-
+    <div class="col-xs-12" ng-if="!showTable">
+        <h3>{{message}}</h3>
+    </div>
+    <div class="col-xs-12" ng-if="showTable">
+        <table st-table="records" class="table table-striped">
+            <caption>记录列表</caption>
+            <thead>
+                <tr>
+                    <!-- <th>recordID</th> -->
+                    <th st-sort="userId">学号</th>
+                    <th st-sort="date">日期</th>
+                    <th st-sort="distance">运动里程</th>
+                    <th st-sort="duration">运动时长</th>
+                    <!-- <th>invalidReason</th> -->
+                    <!-- <th>step</th> -->
+                    <th>类型</th>
+                    <th>已审核</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in records">
+                    <!-- <td>{{record.recordId}}</td> -->
+                    <td>{{record.userId}}</td>
+                    <td>{{record.date}}</td>
+                    <td>{{record.distance}}</td>
+                    <td>{{record.duration}}</td>
+                    <!-- <td>{{record.invalidReason}}</td> -->
+                    <!-- <td>{{record.step}}</td>  -->
+                    <td>{{record.type}}</td>
+                    <td>{{record.verified}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
