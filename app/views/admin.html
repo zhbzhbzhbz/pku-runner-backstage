@@ -1,4 +1,31 @@
 <div class="container" ng-controller="AdminCtrl">
+    
+    <div class="col-xs-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    查询 <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1)" role="tab">按班级</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2)" role="tab">按学院</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3)" role="tab">按老师</a></li>
+                </ul>
+            </li>
+            <li role="presentation" ng-class="{active:isSelected(4)}"><a ng-click="select(4)"role="tab">排名</a></li>
+            <li role="presentation" ng-class="{active:isSelected(5)}"><a ng-click="select(5)"role="tab">发布信息</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">按班级查询</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">按学院查询</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">按老师查询</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">排名页面</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">发布信息页面</div>
+        </div>
+    </div>
+    
     <div class="col-xs-12" ng-if="!showTableB">
         <h3>{{messageB}}</h3>
     </div>
