@@ -10,8 +10,10 @@
 angular.module('pkuRunnerApp')
     .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
+        $scope.itemsByPage = 10;
+        
         $scope.showTable = false;
-        $scope.message="Loading ...";
+        $scope.message='Loading ...';
         
         recordFactory.get().$promise.then(
             function (response) {
@@ -19,12 +21,12 @@ angular.module('pkuRunnerApp')
                 $scope.showTable = true;
             },
             function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
+                $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
                 console.log($scope.message);
             });
         
         $scope.showTableB = false;
-        $scope.messageB="Loading ...";
+        $scope.messageB='Loading ...';
         
         userFactory.get().$promise.then(
             function (response) {
@@ -32,7 +34,7 @@ angular.module('pkuRunnerApp')
                 $scope.showTableB = true;
             },
             function (response) {
-                $scope.messageB = "Error: " + response.status + " " + response.statusText;
+                $scope.messageB = 'Error: ' + response.status + ' ' + response.statusText;
                 console.log($scope.messageB);
             });
 

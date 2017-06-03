@@ -31,6 +31,13 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     
     </div>
@@ -46,12 +53,12 @@
                     <!-- <th>recordID</th> -->
                     <th st-sort="userId">学号</th>
                     <th st-sort="date">日期</th>
-                    <th st-sort="distance">运动里程</th>
-                    <th st-sort="duration">运动时长</th>
+                    <th st-sort="distance">运动里程/米</th>
+                    <th st-sort="duration">运动时长/秒</th>
                     <!-- <th>invalidReason</th> -->
-                    <!-- <th>step</th> -->
-                    <th>类型</th>
-                    <th>已审核</th>
+                    <th>步数</th>
+                    <!-- <th>类型</th> -->
+                    <th>审核</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,11 +69,21 @@
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
                     <!-- <td>{{record.invalidReason}}</td> -->
-                    <!-- <td>{{record.step}}</td>  -->
-                    <td>{{record.type}}</td>
-                    <td>{{record.verified}}</td>
+                    <td>{{record.step}}</td>
+                    <!-- <td>{{record.type}}</td> -->
+                    <td ng-switch on="record.verified">
+                        <span ng-switch-default>未通过</span>
+                        <span ng-switch-when="true">通过</span>
+                    </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
