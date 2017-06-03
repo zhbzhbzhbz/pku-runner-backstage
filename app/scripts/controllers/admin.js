@@ -10,6 +10,16 @@
 angular.module('pkuRunnerApp')
     .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
+        $scope.tab = 1;
+        
+        $scope.select = function (setTab) {
+            $scope.tab = setTab;
+        };
+
+        $scope.isSelected = function (checkTab) {
+            return ($scope.tab === checkTab);
+        };
+        
         $scope.showTable = false;
         $scope.message="Loading ...";
         
