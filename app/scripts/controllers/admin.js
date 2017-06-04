@@ -47,4 +47,24 @@ angular.module('pkuRunnerApp')
                 console.log($scope.messageB);
             });
 
-    }]);
+    }])
+    .directive('stRatio', function(){   // adjust width of columns
+        return {
+            link:function(scope, element, attr){
+                var ratio=+(attr.stRatio);
+
+                element.css('width', ratio+'%');
+            }
+        };
+    })
+    .directive('pageSelect', function() {
+      return {
+        restrict: 'E',
+        template: '<input type="text" class="select-page" ng-model="inputPage" ng-change="selectPage(inputPage)">',
+        link: function(scope) {
+          scope.$watch('currentPage', function(c) {
+            scope.inputPage = c;
+          });
+        }
+      };
+    });

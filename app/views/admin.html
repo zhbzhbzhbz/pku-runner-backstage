@@ -34,8 +34,8 @@
             <caption>用户列表</caption>
             <thead>
                 <tr>
-                    <th st-sort="name">姓名</th>
-                    <th st-sort="id">学号</th>
+                    <th st-ratio="20" st-sort="name">姓名</th>
+                    <th st-ratio="30" st-sort="id">学号</th>
                     <th st-sort="sex">性别</th>
                 </tr>
                 <tr>
@@ -49,8 +49,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in users">
-                    <td>{{user.name}}</td>
-                    <td>{{user.id}}</td>
+                    <td st-ratio="20">{{user.name}}</td>
+                    <td st-ratio="30">{{user.id}}</td>
                     <td ng-switch on="user.sex">
                         <span ng-switch-default>未知</span>
                         <span ng-switch-when="1">男</span>
@@ -61,7 +61,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage"></div>
                     </td>
                 </tr>
             </tfoot>
@@ -106,8 +106,8 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage"></div>
                     </td>
                 </tr>
             </tfoot>
