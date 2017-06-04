@@ -34,23 +34,28 @@
             <caption>用户列表</caption>
             <thead>
                 <tr>
-                    <th st-ratio="20" st-sort="name">姓名</th>
                     <th st-ratio="30" st-sort="id">学号</th>
+                    <th st-ratio="20" st-sort="name">姓名</th>
+                    <th st-ratio="30" st-sort="department">学院</th>
                     <th st-sort="sex">性别</th>
                 </tr>
                 <tr>
                     <th>
+                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
                         <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
                     </th>
                     <th>
-                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
+                        <input st-search="department" placeholder="查询学院" class="input-sm form-control" type="search" />
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="user in users">
-                    <td st-ratio="20">{{user.name}}</td>
                     <td st-ratio="30">{{user.id}}</td>
+                    <td st-ratio="20">{{user.name}}</td>
+                    <td st-ratio="30">{{user.department}}</td>
                     <td ng-switch on="user.sex">
                         <span ng-switch-default>未知</span>
                         <span ng-switch-when="1">男</span>
