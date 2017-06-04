@@ -7,88 +7,141 @@
                     查询 <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1); restoreData(); setDisplayTable(true)" role="tab">按学院</a></li>
-                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2); restoreData(); setDisplayTable(true)" role="tab">按课程</a></li>
-                    <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3); restoreData(); setDisplayTable(true)" role="tab">按老师</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1); restoreData(); setDisplayUsers(true)" role="tab">按学院</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2); restoreData(); setDisplayUsers(true)" role="tab">按课程</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3); restoreData(); setDisplayUsers(true)" role="tab">按老师</a></li>
                 </ul>
             </li>
-            <li role="presentation" ng-class="{active:isSelected(4)}"><a ng-click="select(4); setDisplayTable(false)" role="tab">排名</a></li>
-            <li role="presentation" ng-class="{active:isSelected(5)}"><a ng-click="select(5); setDisplayTable(false)" role="tab">发布信息</a></li>
+            <li role="presentation" ng-class="{active:isSelected(4)}"><a ng-click="select(4); setDisplayRanking(true)" role="tab">排名</a></li>
+            <li role="presentation" ng-class="{active:isSelected(5)}"><a ng-click="select(5); setDisplayUsers(false); setDisplayRanking(false); setDisplayRecords(false)" role="tab">发布信息</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">
-                <div class="dropdown">
-                    按学院查询：
-                    <button class="btn btn-default dropdown-toggle" type="button" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        选择学院
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
-                    </ul>
+                <div class="searchpanel">
+                    <span class="searchcomponent">
+                        按学院查询：
+                        <span class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                选择学院 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
+                            </ul>
+                        </span>
+                    </span>
+                    <span class="searchcomponent">
+                        查询学号：
+                        <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
+                    </span>
+                    <span class="searchcomponent">
+                        查询姓名：
+                        <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
+                    </span>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">
-                <div class="dropdown">
+                <div class="searchpanel" ng-if="displayUsers">
+                    <span class="searchcomponent">
                     按课程查询：
-                    <button class="btn btn-default dropdown-toggle" type="button" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        选择课程
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="course in allCourses"><a ng-click="selectCourse(course)">{{course}}</a></li>
-                    </ul>
+                    <span class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            选择课程 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="course in allCourses"><a ng-click="selectCourse(course)">{{course}}</a></li>
+                        </ul>
+                    </span>
+                    </span>
+                    <span class="searchcomponent">
+                    查询学号：
+                    <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
+                    </span>
+                    <span class="searchcomponent">
+                    查询姓名：
+                    <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
+                    </span>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">
-                <div class="dropdown">
+                <div class="searchpanel" ng-if="displayUsers">
+                    <span class="searchcomponent">
                     按老师查询：
-                    <button class="btn btn-default dropdown-toggle" type="button" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        选择老师
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="teacher in allTeachers"><a ng-click="selectTeacher(teacher)">{{teacher}}</a></li>
-                    </ul>
+                    <span class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            选择老师 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="teacher in allTeachers"><a ng-click="selectTeacher(teacher)">{{teacher}}</a></li>
+                        </ul>
+                    </span>
+                    </span>
+                    <span class="searchcomponent">
+                    查询学号：
+                    <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
+                    </span>
+                    <span class="searchcomponent">
+                    查询姓名：
+                    <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
+                    </span>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">排名页面</div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">发布信息页面</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">
+                <div class="searchpanel" ng-if="displayUsers">
+                    <span class="searchcomponent">
+                        按学院筛选：
+                        <span class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                选择学院 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
+                            </ul>
+                        </span>
+                    </span>
+                    <span class="searchcomponent">
+                        显示：
+                        <span class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                前 --- 条数据 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="setDisplayRankNum(10)">前10条数据</a></li>
+                                <li><a ng-click="setDisplayRankNum(20)">前20条数据</a></li>
+                                <li><a ng-click="setDisplayRankNum(50)">前50条数据</a></li>
+                                <li><a ng-click="setDisplayRankNum(100)">前100条数据</a></li>
+                            </ul>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">
+                敬请期待！
+            </div>
         </div>
     </div>
     
-    <div class="col-xs-12" ng-if="!showTableB">
-        <h3>{{messageB}}</h3>
+    <!-- User Table -->
+    <div class="col-xs-12" ng-if="!userTableReady">
+        <h3>{{message}}</h3>
     </div>
-    <div class="col-xs-12" ng-if="showTableB && displayTable">
+    <div class="col-xs-12" ng-if="userTableReady && displayUsers">
         <table st-table="displayedData" st-safe-src="users" class="table table-striped">
-            <!-- <caption>用户列表</caption> -->
+            <caption>查询结果（点击表头可以排序）</caption>
             <thead>
                 <tr>
-                    <th st-ratio="15" st-sort="id">学号</th>
+                    <th st-ratio="15" st-sort="id" st-sort-default="true" st-skip-natural="true">学号</th>
                     <th st-ratio="13">姓名</th>
-                    <th st-ratio="5">性别</th>
-                    <th st-ratio="22">学院</th>
-                    <th st-ratio="22">课程</th>
+                    <th st-ratio="8" st-sort="sex">性别</th>
+                    <th st-ratio="22" st-sort="department" st-skip-natural="true">学院</th>
+                    <th st-ratio="22" st-sort="course" st-skip-natural="true">课程</th>
                     <th st-ratio="5">班号</th>
-                    <th>教师</th>
-                </tr>
-                <tr>
-                    <th>
-                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
-                    </th>
-                    <th>
-                        <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
-                    </th>
+                    <th st-sort="teacher" st-skip-natural="true">教师</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in displayedData">
+                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑km 剩余km" ng-click="viewUser(user.id); setDisplayRecords(true)">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
@@ -113,38 +166,75 @@
                 </tr>
             </tfoot>
         </table>
-    
     </div>
     
-    <!-- <div class="col-xs-12" ng-if="!showTable">
+    <!-- User Ranking -->
+    <div class="col-xs-12" ng-if="!userTableReady">
         <h3>{{message}}</h3>
     </div>
-    <div class="col-xs-12" ng-if="showTable">
-        <table st-table="records" class="table table-striped">
-            <caption>记录列表</caption>
+    <div class="col-xs-12" ng-if="userTableReady && displayRanking">
+        <table st-table="displayedRanking" st-safe-src="users" class="table table-striped">
+            <caption>当前排名（显示前 {{displayRankNum}} 条数据）</caption>
             <thead>
                 <tr>
-                    <th>recordID</th>
-                    <th st-sort="userId">学号</th>
-                    <th st-sort="date">日期</th>
-                    <th st-sort="distance">运动里程/米</th>
-                    <th st-sort="duration">运动时长/秒</th>
-                    <th>invalidReason</th>
-                    <th>步数</th>
-                    <th>类型</th>
-                    <th>审核</th>
+                    <th st-ratio="5">名次</th>
+                    <th st-ratio="15">学号</th>
+                    <th st-ratio="13">姓名</th>
+                    <th st-ratio="8">性别</th>
+                    <th st-ratio="22">学院</th>
+                    <th>总里程</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="record in records">
+                <tr ng-repeat="user in displayedRanking">
+                    <td>{{$index + 1}}</td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td ng-switch on="user.sex">
+                        <span ng-switch-default>未知</span>
+                        <span ng-switch-when="1">男</span>
+                        <span ng-switch-when="2">女</span>
+                    </td>
+                    <td>{{user.department}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <!-- <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div> -->
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- User Records -->
+    <div class="col-xs-12" ng-if="!recordTableReady">
+        <h3>{{message}}</h3>
+    </div>
+    <div class="col-xs-12" ng-if="recordTableReady && displayRecords">
+        <table st-table="displayedUserRecords" st-safe-src="userRecords" class="table table-striped">
+            <caption> {{displayUserId}} 的跑步记录 <a ng-click="setDisplayUsers(true)">返回</a> </caption>
+            <thead>
+                <tr>
+                    <th st-ratio="8" st-sort="recordId" st-sort-default="true" st-skip-natural="true">序号</th>
+                    <th st-ratio="15">日期</th>
+                    <th st-ratio="15">运动距离／米</th>
+                    <th st-ratio="15">运动时长／秒</th>
+                    <th st-ratio="8">步数</th>
+                    <th>已审核</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in displayedUserRecords">
                     <td>{{record.recordId}}</td>
-                    <td>{{record.userId}}</td>
-                    <td>{{record.date}}</td>
+                    <td>{{record.date | date}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
-                    <td>{{record.invalidReason}}</td>
                     <td>{{record.step}}</td>
-                    <td>{{record.type}}</td>
                     <td ng-switch on="record.verified">
                         <span ng-switch-default>未通过</span>
                         <span ng-switch-when="true">通过</span>
@@ -154,10 +244,12 @@
             <tfoot>
                 <tr>
                     <td colspan="6" class="text-center">
-                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage"></div>
+                        <!-- <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div> -->
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
                     </td>
                 </tr>
             </tfoot>
         </table>
-    </div> -->
+    </div>
 </div>
