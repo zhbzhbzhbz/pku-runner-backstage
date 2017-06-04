@@ -8,6 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
+
     .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
         $scope.itemsByPage = 10;
