@@ -8,9 +8,13 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', 'teacherFactory',function ($scope, recordFactory, userFactory, teacherFactory) {
+    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
         $scope.itemsByPage = 10;
+        $scope.allDepartments = [];
+        $scope.allCourses = [];
+        $scope.allTeachers = [];
+
         $scope.tab = 1;
         
         $scope.select = function (setTab) {
@@ -39,7 +43,22 @@ angular.module('pkuRunnerApp')
         
         userFactory.get().$promise.then(
             function (response) {
-                $scope.users = response.data;
+                var users = response.data;
+
+                var allDepartments = new Set();
+                var allCourses = new Set();
+                var allTeachers = new Set();
+
+                for (var i = 0; i < users.length; i++) {
+                    allDepartments.add(users[i].department);
+                    allCourses.add(users[i].course);
+                    allTeachers.add(users[i].teacher);
+                }
+
+                $scope.users = users;
+                $scope.allDepartments = Array.from(allDepartments);
+                $scope.allCourses = Array.from(allCourses);
+                $scope.allTeachers = Array.from(allTeachers);
                 $scope.showTableB = true;
             },
             function (response) {

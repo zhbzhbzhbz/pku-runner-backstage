@@ -7,8 +7,8 @@
                     查询 <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1)" role="tab">按班级</a></li>
-                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2)" role="tab">按学院</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1)" role="tab">按学院</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2)" role="tab">按课程</a></li>
                     <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3)" role="tab">按老师</a></li>
                 </ul>
             </li>
@@ -18,9 +18,45 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">按班级查询</div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">按学院查询</div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">按老师查询</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">
+                <div class="dropdown">
+                    按学院查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择学院
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="department in allDepartments"><a href="#">{{department}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">
+                <div class="dropdown">
+                    按课程查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择课程
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="course in allCourses"><a href="#">{{course}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">
+                <div class="dropdown">
+                    按老师查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择老师
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="teacher in allTeachers"><a href="#">{{teacher}}</a></li>
+                    </ul>
+                </div>
+            </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">排名页面</div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">发布信息页面</div>
         </div>
@@ -34,10 +70,10 @@
             <caption>用户列表</caption>
             <thead>
                 <tr>
-                    <th st-ratio="30" st-sort="id">学号</th>
-                    <th st-ratio="20" st-sort="name">姓名</th>
+                    <th st-ratio="20" st-sort="id">学号</th>
+                    <th st-ratio="15" st-sort="name">姓名</th>
                     <th st-ratio="30" st-sort="department">学院</th>
-                    <th st-sort="sex">性别</th>
+                    <th st-ratio="5" st-sort="sex">性别</th>
                     <th st-sort="course">course</th>
                     <th st-sort="courseId">courseId</th>
                     <th st-sort="teacher">teacher</th>
@@ -56,9 +92,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in users">
-                    <td st-ratio="30">{{user.id}}</td>
-                    <td st-ratio="20">{{user.name}}</td>
-                    <td st-ratio="30">{{user.department}}</td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.department}}</td>
                     <td ng-switch on="user.sex">
                         <span ng-switch-default>未知</span>
                         <span ng-switch-when="1">男</span>
