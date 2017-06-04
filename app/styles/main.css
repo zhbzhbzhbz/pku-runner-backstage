@@ -84,3 +84,12 @@ body {
     border-bottom: 0;
   }
 }
+
+/* Add arrow to smart-table sorting */
+.st-sort-ascent:before {
+	content: '\25B2';
+}
+.st-sort-descent:before {
+	content: '\25BC';
+}
+  
