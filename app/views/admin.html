@@ -37,6 +37,9 @@
                     <th st-ratio="20" st-sort="name">姓名</th>
                     <th st-ratio="30" st-sort="id">学号</th>
                     <th st-sort="sex">性别</th>
+                    <th st-sort="course">course</th>
+                    <th st-sort="courseId">courseId</th>
+                    <th st-sort="teacher">teacher</th>
                 </tr>
                 <tr>
                     <th>
@@ -56,6 +59,9 @@
                         <span ng-switch-when="1">男</span>
                         <span ng-switch-when="2">女</span>
                     </td>
+                    <td>{{user.course}}</td>
+                    <td>{{user.courseId}}</td>
+                    <td>{{user.teacher}}</td>
                 </tr>
             </tbody>
             <tfoot>
