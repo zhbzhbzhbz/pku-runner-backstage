@@ -8,7 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
+    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', 'teacherFactory',function ($scope, recordFactory, userFactory, teacherFactory) {
         
         $scope.itemsByPage = 10;
         $scope.tab = 1;
@@ -46,6 +46,7 @@ angular.module('pkuRunnerApp')
                 $scope.messageB = 'Error: ' + response.status + ' ' + response.statusText;
                 console.log($scope.messageB);
             });
+        
 
     }])
     .directive('stRatio', function(){   // adjust width of columns
