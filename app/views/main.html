@@ -1,9 +1,8 @@
 <div class="container" ng-controller="MainCtrl">
 
     
-    
-    <button type="button" class="btn btn-primary btn-lg btn-block">学生入口</button>
-    <button type="button" class="btn btn-success btn-lg btn-block">教师入口</button>
+    <a ng-click="gotoIAAA()" class="btn btn-primary btn-lg btn-block" role="button">学生入口</a>
+    <a ui-sref="app.admin" class="btn btn-success btn-lg btn-block" role="button">教师入口</a>
     <a ui-sref="app.admin" class="btn btn-info btn-lg btn-block" role="button">管理员入口</a>
 
     
