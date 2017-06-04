@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pkuRunnerApp')
-        .constant('baseURL','http://localhost:3000/')
+        .constant('baseURL','http://pkuzone.jios.org:10201/')
 
         .factory('recordFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
