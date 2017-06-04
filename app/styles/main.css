@@ -84,3 +84,21 @@ body {
     border-bottom: 0;
   }
 }
+
+/* Add arrow to smart-table sorting */
+.st-sort-ascent:before {
+	content: '\25B2';
+}
+.st-sort-descent:before {
+	content: '\25BC';
+}
+
+/* Custom pagination */
+.select-page {
+  width: 50px;
+  text-align: center;
+}
+.pagination li a input {
+  padding: 0;
+  margin: -5px 0;
+}

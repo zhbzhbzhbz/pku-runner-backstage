@@ -7,20 +7,56 @@
                     查询 <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1)" role="tab">按班级</a></li>
-                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2)" role="tab">按学院</a></li>
-                    <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3)" role="tab">按老师</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(1)}"><a ng-click="select(1); restoreData(); setDisplayTable(true)" role="tab">按学院</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(2)}"><a ng-click="select(2); restoreData(); setDisplayTable(true)" role="tab">按课程</a></li>
+                    <li role="presentation" ng-class="{active:isSelected(3)}"><a ng-click="select(3); restoreData(); setDisplayTable(true)" role="tab">按老师</a></li>
                 </ul>
             </li>
-            <li role="presentation" ng-class="{active:isSelected(4)}"><a ng-click="select(4)"role="tab">排名</a></li>
-            <li role="presentation" ng-class="{active:isSelected(5)}"><a ng-click="select(5)"role="tab">发布信息</a></li>
+            <li role="presentation" ng-class="{active:isSelected(4)}"><a ng-click="select(4); setDisplayTable(false)" role="tab">排名</a></li>
+            <li role="presentation" ng-class="{active:isSelected(5)}"><a ng-click="select(5); setDisplayTable(false)" role="tab">发布信息</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">按班级查询</div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">按学院查询</div>
-            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">按老师查询</div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">
+                <div class="dropdown">
+                    按学院查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择学院
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">
+                <div class="dropdown">
+                    按课程查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择课程
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="course in allCourses"><a ng-click="selectCourse(course)">{{course}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">
+                <div class="dropdown">
+                    按老师查询：
+                    <button class="btn btn-default dropdown-toggle" type="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        选择老师
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="teacher in allTeachers"><a ng-click="selectTeacher(teacher)">{{teacher}}</a></li>
+                    </ul>
+                </div>
+            </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">排名页面</div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">发布信息页面</div>
         </div>
@@ -29,46 +65,58 @@
     <div class="col-xs-12" ng-if="!showTableB">
         <h3>{{messageB}}</h3>
     </div>
-    <div class="col-xs-12" ng-if="showTableB">
-        <table st-table="users" class="table table-striped">
-            <caption>用户列表</caption>
+    <div class="col-xs-12" ng-if="showTableB && displayTable">
+        <table st-table="displayedData" st-safe-src="users" class="table table-striped">
+            <!-- <caption>用户列表</caption> -->
             <thead>
                 <tr>
-                    <th st-sort="name">姓名</th>
-                    <th st-sort="id">学号</th>
-                    <th st-sort="sex">性别</th>
-                    <th st-sort="course">course</th>
-                    <th st-sort="courseId">courseId</th>
-                    <th st-sort="teacher">teacher</th>
+                    <th st-ratio="15" st-sort="id">学号</th>
+                    <th st-ratio="13">姓名</th>
+                    <th st-ratio="5">性别</th>
+                    <th st-ratio="22">学院</th>
+                    <th st-ratio="22">课程</th>
+                    <th st-ratio="5">班号</th>
+                    <th>教师</th>
                 </tr>
                 <tr>
                     <th>
-                        <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
+                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
                     </th>
                     <th>
-                        <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
+                        <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in users">
-                    <td>{{user.name}}</td>
+                <tr ng-repeat="user in displayedData">
                     <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
                         <span ng-switch-default>未知</span>
                         <span ng-switch-when="1">男</span>
                         <span ng-switch-when="2">女</span>
                     </td>
+                    <td>{{user.department}}</td>
                     <td>{{user.course}}</td>
                     <td>{{user.courseId}}</td>
                     <td>{{user.teacher}}</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <!-- <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div> -->
+                        <div st-pagination="" st-items-by-page="itemsByPage">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     
     </div>
     
-    <div class="col-xs-12" ng-if="!showTable">
+    <!-- <div class="col-xs-12" ng-if="!showTable">
         <h3>{{message}}</h3>
     </div>
     <div class="col-xs-12" ng-if="showTable">
@@ -76,30 +124,40 @@
             <caption>记录列表</caption>
             <thead>
                 <tr>
-                    <!-- <th>recordID</th> -->
+                    <th>recordID</th>
                     <th st-sort="userId">学号</th>
                     <th st-sort="date">日期</th>
-                    <th st-sort="distance">运动里程</th>
-                    <th st-sort="duration">运动时长</th>
-                    <!-- <th>invalidReason</th> -->
-                    <!-- <th>step</th> -->
+                    <th st-sort="distance">运动里程/米</th>
+                    <th st-sort="duration">运动时长/秒</th>
+                    <th>invalidReason</th>
+                    <th>步数</th>
                     <th>类型</th>
-                    <th>已审核</th>
+                    <th>审核</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="record in records">
-                    <!-- <td>{{record.recordId}}</td> -->
+                    <td>{{record.recordId}}</td>
                     <td>{{record.userId}}</td>
                     <td>{{record.date}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
-                    <!-- <td>{{record.invalidReason}}</td> -->
-                    <!-- <td>{{record.step}}</td>  -->
+                    <td>{{record.invalidReason}}</td>
+                    <td>{{record.step}}</td>
                     <td>{{record.type}}</td>
-                    <td>{{record.verified}}</td>
+                    <td ng-switch on="record.verified">
+                        <span ng-switch-default>未通过</span>
+                        <span ng-switch-when="true">通过</span>
+                    </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
-    </div>
+    </div> -->
 </div>
