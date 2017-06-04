@@ -11,9 +11,13 @@ angular.module('pkuRunnerApp')
     .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
         $scope.itemsByPage = 10;
+        $scope.displayTable = true;
+        $scope.allUsers = [];
         $scope.allDepartments = [];
         $scope.allCourses = [];
         $scope.allTeachers = [];
+
+        const allStr = '------全部------';
 
         $scope.tab = 1;
         
@@ -46,12 +50,15 @@ angular.module('pkuRunnerApp')
                 var users = response.data;
 
                 var allDepartments = new Set();
+                allDepartments.add(allStr);
                 var allCourses = new Set();
+                allCourses.add(allStr);
                 var allTeachers = new Set();
+                allTeachers.add(allStr);
 
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].department !== undefined) {
-                        allDepartments.add(users[i].department);
+                    if (users[i].name !== undefined) {
+                        allDepartments.add(users[i].name);
                     }
                     if (users[i].course !== undefined) {
                         allCourses.add(users[i].course);
@@ -62,6 +69,7 @@ angular.module('pkuRunnerApp')
                 }
 
                 $scope.users = users;
+                $scope.allUsers = users;
                 $scope.allDepartments = Array.from(allDepartments);
                 $scope.allCourses = Array.from(allCourses);
                 $scope.allTeachers = Array.from(allTeachers);
@@ -70,8 +78,46 @@ angular.module('pkuRunnerApp')
             function (response) {
                 $scope.messageB = 'Error: ' + response.status + ' ' + response.statusText;
                 console.log($scope.messageB);
-            });
-        
+            }
+        );
+
+        $scope.setDisplayTable = function(show) {
+            $scope.displayTable = show;
+        };
+
+        $scope.restoreData = function() {
+            $scope.users = $scope.allUsers;
+        };
+
+        $scope.selectDepartment = function(dept) {
+            if (dept === allStr) {
+                $scope.users = $scope.allUsers;
+            } else {
+                $scope.users = $scope.allUsers.filter(function(user) {
+                    return user.name === dept;
+                });
+            }
+        };
+
+        $scope.selectCourse = function(crs) {
+            if (crs === allStr) {
+                $scope.users = $scope.allUsers;
+            } else {
+                $scope.users = $scope.allUsers.filter(function(user) {
+                    return user.course === crs;
+                });
+            }
+        };
+
+        $scope.selectTeacher = function(tchr) {
+            if (tchr === allStr) {
+                $scope.users = $scope.allUsers;
+            } else {
+                $scope.users = $scope.allUsers.filter(function(user) {
+                    return user.teacher === tchr;
+                });
+            }
+        };
 
     }])
     .directive('stRatio', function(){   // adjust width of columns
