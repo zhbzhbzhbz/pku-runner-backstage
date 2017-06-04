@@ -27,7 +27,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="department in allDepartments"><a href="#">{{department}}</a></li>
+                        <li ng-repeat="department in allDepartments"><a ng-click="filter">{{department}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -70,23 +70,29 @@
             <caption>用户列表</caption>
             <thead>
                 <tr>
-                    <th st-ratio="20" st-sort="id">学号</th>
-                    <th st-ratio="15" st-sort="name">姓名</th>
-                    <th st-ratio="30" st-sort="department">学院</th>
+                    <th st-ratio="15" st-sort="id">学号</th>
+                    <th st-ratio="13" st-sort="name">姓名</th>
                     <th st-ratio="5" st-sort="sex">性别</th>
-                    <th st-sort="course">course</th>
-                    <th st-sort="courseId">courseId</th>
-                    <th st-sort="teacher">teacher</th>
+                    <th st-ratio="22" st-sort="department">学院</th>
+                    <th st-ratio="22" st-sort="course">课程</th>
+                    <th st-ratio="5" st-sort="courseId">班号</th>
+                    <th st-sort="teacher">教师</th>
                 </tr>
                 <tr>
                     <th>
                         <input st-search="id" placeholder="查询学号" class="input-sm form-control" type="search" />
                     </th>
-                    <th>
+                    <th colspan="2">
                         <input st-search="name" placeholder="查询姓名" class="input-sm form-control" type="search" />
                     </th>
                     <th>
                         <input st-search="department" placeholder="查询学院" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="2">
+                        <input st-search="course" placeholder="查询课程" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                        <input st-search="teacher" placeholder="查询教师" class="input-sm form-control" type="search" />
                     </th>
                 </tr>
             </thead>
@@ -94,12 +100,12 @@
                 <tr ng-repeat="user in users">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
-                    <td>{{user.department}}</td>
                     <td ng-switch on="user.sex">
                         <span ng-switch-default>未知</span>
                         <span ng-switch-when="1">男</span>
                         <span ng-switch-when="2">女</span>
                     </td>
+                    <td>{{user.department}}</td>
                     <td>{{user.course}}</td>
                     <td>{{user.courseId}}</td>
                     <td>{{user.teacher}}</td>
@@ -107,8 +113,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="text-center">
-                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage"></div>
+                    <td colspan="7" class="text-center">
+                        <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div>
                     </td>
                 </tr>
             </tfoot>
@@ -116,7 +123,7 @@
     
     </div>
     
-    <div class="col-xs-12" ng-if="!showTable">
+    <!-- <div class="col-xs-12" ng-if="!showTable">
         <h3>{{message}}</h3>
     </div>
     <div class="col-xs-12" ng-if="showTable">
@@ -124,27 +131,27 @@
             <caption>记录列表</caption>
             <thead>
                 <tr>
-                    <!-- <th>recordID</th> -->
+                    <th>recordID</th>
                     <th st-sort="userId">学号</th>
                     <th st-sort="date">日期</th>
                     <th st-sort="distance">运动里程/米</th>
                     <th st-sort="duration">运动时长/秒</th>
-                    <!-- <th>invalidReason</th> -->
+                    <th>invalidReason</th>
                     <th>步数</th>
-                    <!-- <th>类型</th> -->
+                    <th>类型</th>
                     <th>审核</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="record in records">
-                    <!-- <td>{{record.recordId}}</td> -->
+                    <td>{{record.recordId}}</td>
                     <td>{{record.userId}}</td>
                     <td>{{record.date}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
-                    <!-- <td>{{record.invalidReason}}</td> -->
+                    <td>{{record.invalidReason}}</td>
                     <td>{{record.step}}</td>
-                    <!-- <td>{{record.type}}</td> -->
+                    <td>{{record.type}}</td>
                     <td ng-switch on="record.verified">
                         <span ng-switch-default>未通过</span>
                         <span ng-switch-when="true">通过</span>
@@ -159,5 +166,5 @@
                 </tr>
             </tfoot>
         </table>
-    </div>
+    </div> -->
 </div>

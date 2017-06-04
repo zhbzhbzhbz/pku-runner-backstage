@@ -50,9 +50,15 @@ angular.module('pkuRunnerApp')
                 var allTeachers = new Set();
 
                 for (var i = 0; i < users.length; i++) {
-                    allDepartments.add(users[i].department);
-                    allCourses.add(users[i].course);
-                    allTeachers.add(users[i].teacher);
+                    if (users[i].department !== undefined) {
+                        allDepartments.add(users[i].department);
+                    }
+                    if (users[i].course !== undefined) {
+                        allCourses.add(users[i].course);
+                    }
+                    if (users[i].teacher !== undefined) {
+                        allTeachers.add(users[i].teacher);
+                    }
                 }
 
                 $scope.users = users;
