@@ -8,7 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', 'teacherFactory',function ($scope, recordFactory, userFactory, teacherFactory) {
+    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory',function ($scope, recordFactory, userFactory) {
         
         $scope.tab = 1;
         
