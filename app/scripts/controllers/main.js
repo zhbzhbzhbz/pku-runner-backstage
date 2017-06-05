@@ -44,8 +44,6 @@ angular.module('pkuRunnerApp')
             token = url.substring(url.indexOf("token=")+6,url.indexOf("#!/")+0);
             console.log(token);
             $scope.loginData = {};
-            console.log("loginData: ");
-            console.log($scope.loginData);
             $scope.loginData.access_token = token;
             AuthFactory.login($scope.loginData);                
 

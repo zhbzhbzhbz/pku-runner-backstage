@@ -72,7 +72,20 @@ angular.module('pkuRunnerApp', ['ui.router','ngResource','ngDialog', 'smart-tabl
                         controller  : 'StudentCtrl'                  
                     }
                 }
-            });
+            })
+        
+            // route for the admin page
+            .state('app.faculty', {
+                url:'faculty',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/faculty.html',
+                        controller  : 'FacultyCtrl'                  
+                    }
+                }
+            })
+        
+        ;
         
 
     
