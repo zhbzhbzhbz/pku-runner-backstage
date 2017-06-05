@@ -153,13 +153,8 @@ angular.module('pkuRunnerApp')
         .factory('AdminAuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
     
             var authFac = {};
-            var TOKEN_KEY = 'admininfo';
-            var isAuthenticated = false;
-            var id = 0;
-            var authToken = undefined;
-            var name = "";
-            var department = "";
-            var isPESpecialty = false;
+            var TOKEN_KEY = 'auth';
+            var isAdminAuthenticated = false;
     
 
             function loadUserCredentials() {
@@ -179,22 +174,14 @@ angular.module('pkuRunnerApp')
             function useCredentials(credentials) {
                 console.log("useCredentials");
                 console.log(credentials);
-                isAuthenticated = true;
-                id = credentials.id;
-                authToken = credentials.token;
- 
-                // Set the token as header for your requests!
-                $http.defaults.headers.common['Authorization'] = authToken;
+                isAdminAuthenticated = true;
             }
  
             function destroyUserCredentials() {
-                authToken = undefined;
-                id = 0;
-                isAuthenticated = false;
-                $http.defaults.headers.common['Authorization'] = authToken;
+                isAdminAuthenticated = false;
                 $localStorage.remove(TOKEN_KEY);
                 console.log("destroyUserCredentials");
-                console.log("isAuthenticated: " + isAuthenticated);
+                console.log("isAdminAuthenticated: " + isAdminAuthenticated);
             }
      
             authFac.preLogin = function(preLoginData) {
@@ -257,7 +244,7 @@ angular.module('pkuRunnerApp')
                           },
                           function(response){
                             console.log(response);
-                            isAuthenticated = false;
+                            isAdminAuthenticated = false;
             
                             var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.data.err.message + '</p><p>' + response.data.err.name + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
             
@@ -269,14 +256,15 @@ angular.module('pkuRunnerApp')
             };
     
             authFac.logout = function() {
-                //$resource(baseURL + "users/logout").get(function(response){
-                //});
+                $resource(baseURL + "admin/logout").get(function(response){
+                });
                 destroyUserCredentials();
+                window.location.href="http://pkuzone.jios.org:10201/dist/";
             };
     
     
-            authFac.isAuthenticated = function() {
-                return isAuthenticated;
+            authFac.isAdminAuthenticated = function() {
+                return isAdminAuthenticated
             };
     
             //authFac.getUsername = function() {
