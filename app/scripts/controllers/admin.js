@@ -22,6 +22,7 @@ angular.module('pkuRunnerApp')
             AdminAuthFactory.logout();
             $state.go('app', {}, {reload: true});
         };
+
         
         $scope.itemsByPage = 10;
         $scope.displayUsers = true;
