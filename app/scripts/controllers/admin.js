@@ -9,7 +9,7 @@
  */
 angular.module('pkuRunnerApp')
 
-    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', 'AdminAuthFactory', '$state', function ($scope, recordFactory, userFactory, AdminAuthFactory, $state) {
+    .controller('AdminCtrl', ['$scope', 'adminRecordFactory', 'adminUserFactory', 'AdminAuthFactory', '$state', function ($scope, adminRecordFactory, adminUserFactory, AdminAuthFactory, $state) {
         
         $scope.adminLoggedIn = AdminAuthFactory.isAdminAuthenticated();
         
@@ -53,7 +53,7 @@ angular.module('pkuRunnerApp')
         
         $scope.recordTableReady = false;
         
-        recordFactory.get().$promise.then(
+        adminRecordFactory.get().$promise.then(
             function (response) {
                 var records = response.data;
                 
@@ -76,7 +76,7 @@ angular.module('pkuRunnerApp')
         
         $scope.userTableReady = false;
         
-        userFactory.get().$promise.then(
+        adminUserFactory.get().$promise.then(
             function (response) {
                 var users = response.data;
 

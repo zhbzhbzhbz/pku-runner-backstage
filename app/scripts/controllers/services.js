@@ -6,9 +6,9 @@ angular.module('pkuRunnerApp')
         .factory('statusFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
             // Set the token so you can login as Gao Kun
-            $http.defaults.headers.common['Authorization'] = '59130ce4dbe4b8d3cff3c1d7602f1eea';
+            //$http.defaults.headers.common['Authorization'] = '0bdc1af847e3357ec22bcaafbf508a32';
             
-            return $resource(baseURL + 'record/status/:id', null, {
+            return $resource(baseURL + 'record/status/:userId', null, {
                 'update': {
                     method: 'PUT'
                 }
@@ -18,6 +18,19 @@ angular.module('pkuRunnerApp')
 
         .factory('recordFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
+            // Set the token so you can login as Gao Kun
+            //$http.defaults.headers.common['Authorization'] = '0bdc1af847e3357ec22bcaafbf508a32';
+            
+            return $resource(baseURL + 'record/:userId/:recordId', null, {
+                'update': {
+                    method: 'PUT'
+                }
+            });
+    
+        }])
+
+        .factory('adminRecordFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
+            
             return $resource(baseURL + 'admin/record', null, {
                 'update': {
                     method: 'PUT'
@@ -26,7 +39,7 @@ angular.module('pkuRunnerApp')
     
         }])
 
-        .factory('userFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
+        .factory('adminUserFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
             return $resource(baseURL + 'admin/user', null, {
                 'update': {
