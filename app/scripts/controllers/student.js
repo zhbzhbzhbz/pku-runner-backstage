@@ -8,8 +8,8 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, $state) {
-        
+
+    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, $state) {     
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
         

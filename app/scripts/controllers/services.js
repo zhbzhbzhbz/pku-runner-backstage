@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('pkuRunnerApp')
+
         .constant("baseURL","http://pkuzone.jios.org:10201/")
 
         .factory('recordFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
@@ -149,6 +150,7 @@ angular.module('pkuRunnerApp')
             return authFac;
     
         }])
+
 
         .factory('AdminAuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
     

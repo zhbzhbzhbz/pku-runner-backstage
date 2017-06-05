@@ -8,6 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
+
     .controller('MainCtrl', ['$scope', '$location', '$localStorage', 'AuthFactory', '$state', 'ngDialog', 'AdminAuthFactory', function ($scope, $location, $localStorage, AuthFactory, $state, ngDialog, AdminAuthFactory) {
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
@@ -15,10 +16,12 @@ angular.module('pkuRunnerApp')
         
         console.log("loggedIn: " + $scope.loggedIn);
         console.log("adminLoggedIn: " + $scope.adminLoggedIn);
+
         
         if($scope.loggedIn) {
             $state.go('app.student', {}, {reload: true});
         }
+
         
         if($scope.adminLoggedIn) {
             $state.go('app.admin', {}, {reload: true});
@@ -71,7 +74,7 @@ angular.module('pkuRunnerApp')
             }
             
         };
-        
+
         $scope.openLogin = function () {
             ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default', controller:"LoginCtrl" });
         };

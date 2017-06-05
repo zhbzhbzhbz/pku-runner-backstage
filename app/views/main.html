@@ -1,10 +1,23 @@
 <div class="container" ng-controller="MainCtrl">
-
-    
-    <a ng-click="gotoIAAA()" class="btn btn-primary btn-lg btn-block" role="button">学生入口</a>
-    <a ui-sref="app.admin" class="btn btn-success btn-lg btn-block" role="button">教师入口</a>
-    <a ng-click="openLogin()" class="btn btn-info btn-lg btn-block" role="button">管理员入口</a>
-
-    
+    <div class="marketing">
+        <img ng-src="images/marketing.png" class="img-responsive" />
+        <div class="container login">
+            <div class="row">
+                <button ng-click="gotoIAAA()">
+                    <img ng-src="images/main-button.png" class="img-responsive" />
+                </button>
+            </div>
+            <div class="row">
+                <button ng-click="gotoIAAA()">
+                    <h5>教师／学生登录入口</h5>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button ng-click="openLogin()" role="button">
+            <h5><u>管理员登录入口</u></h5>
+        </button>
+    </div>
 
 </div>
