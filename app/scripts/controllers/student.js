@@ -8,7 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, $state) {
+    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', 'statusFactory', function ($scope, $rootScope, $localStorage, AuthFactory, $state, statusFactory) {
         
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
@@ -22,6 +22,10 @@ angular.module('pkuRunnerApp')
         console.log("userCredentials: ");
         console.log($scope.userCredentials);
         
+        // change the id to acquire Gao Kun access
+        $scope.userCredentials.id = 1501212454;
+        
+        
         $scope.logout = function () {
             
             $scope.loginData = {};
@@ -32,5 +36,19 @@ angular.module('pkuRunnerApp')
             $state.go('app', {}, {reload: true});
         };
         
+        
+        $scope.status = statusFactory.get({
+            id: $scope.userCredentials.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.status = response.data;
+                $scope.showStatus = true;
+                console.log($scope.status);
+            },
+            function (response) {
+                $scope.message = "Error: cannot get data from server!";
+            }
+        );
 
     }]);
