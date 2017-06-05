@@ -8,7 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('MainCtrl', ['$scope', '$location', '$localStorage', 'AuthFactory', '$state', '$rootScope', function ($scope, $location, $localStorage, AuthFactory, $state, $rootScope) {
+    .controller('MainCtrl', ['$scope', '$location', '$localStorage', 'AuthFactory', '$state', 'ngDialog', function ($scope, $location, $localStorage, AuthFactory, $state, ngDialog) {
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
         
@@ -67,7 +67,10 @@ angular.module('pkuRunnerApp')
             }
             
         };
-            
+        
+        $scope.openLogin = function () {
+            ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default', controller:"LoginCtrl" });
+        };
         
         
     
