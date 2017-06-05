@@ -12,13 +12,22 @@ angular.module('pkuRunnerApp')
     .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
         
         $scope.itemsByPage = 10;
-        $scope.displayTable = true;
+        $scope.displayUsers = true;
+        $scope.displayRanking = false;
+        $scope.displayRecords = false;
+
+        $scope.displayRankNum = 20;
+        $scope.displayUserRecords = false;
+        $scope.displayUserId = 1400000000;
+
         $scope.allUsers = [];
         $scope.allDepartments = [];
         $scope.allCourses = [];
         $scope.allTeachers = [];
+        $scope.userRecords = [];
 
         const allStr = '------全部------';
+        $scope.message='Loading ...';
 
         $scope.tab = 1;
         
@@ -30,21 +39,30 @@ angular.module('pkuRunnerApp')
             return ($scope.tab === checkTab);
         };
         
-        $scope.showTable = false;
-        $scope.message='Loading ...';
+        $scope.recordTableReady = false;
         
         recordFactory.get().$promise.then(
             function (response) {
-                $scope.records = response.data;
-                $scope.showTable = true;
+                var records = response.data;
+                
+                var recordsSortByUser = {};
+                for (var i = 0; i < records.length; i++) {
+                    var userIdString = String(records[i].userId);
+                    if (!recordsSortByUser.hasOwnProperty(userIdString)) {
+                        recordsSortByUser[userIdString] = [];
+                    }
+                    recordsSortByUser[userIdString].push(records[i]);
+                }
+                
+                $scope.recordsSortByUser = recordsSortByUser;
+                $scope.recordTableReady = true;
             },
             function (response) {
                 $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
                 console.log($scope.message);
             });
         
-        $scope.showTableB = false;
-        $scope.messageB='Loading ...';
+        $scope.userTableReady = false;
         
         userFactory.get().$promise.then(
             function (response) {
@@ -58,8 +76,8 @@ angular.module('pkuRunnerApp')
                 allTeachers.add(allStr);
 
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].name !== undefined) {
-                        allDepartments.add(users[i].name);
+                    if (users[i].department !== undefined) {
+                        allDepartments.add(users[i].department);
                     }
                     if (users[i].course !== undefined) {
                         allCourses.add(users[i].course);
@@ -74,7 +92,7 @@ angular.module('pkuRunnerApp')
                 $scope.allDepartments = Array.from(allDepartments);
                 $scope.allCourses = Array.from(allCourses);
                 $scope.allTeachers = Array.from(allTeachers);
-                $scope.showTableB = true;
+                $scope.userTableReady = true;
             },
             function (response) {
                 $scope.messageB = 'Error: ' + response.status + ' ' + response.statusText;
@@ -82,8 +100,32 @@ angular.module('pkuRunnerApp')
             }
         );
 
-        $scope.setDisplayTable = function(show) {
-            $scope.displayTable = show;
+        $scope.setDisplayUsers = function(show) {
+            $scope.displayUsers = show;
+            if (show) {
+                $scope.setDisplayRanking(false);
+                $scope.setDisplayRecords(false);
+            }
+        };
+
+        $scope.setDisplayRanking = function(show) {
+            $scope.displayRanking = show;
+            if (show) {
+                $scope.setDisplayUsers(false);
+                $scope.setDisplayRecords(false);
+            }
+        };
+
+        $scope.setDisplayRecords = function(show) {
+            $scope.displayRecords = show;
+            if (show) {
+                $scope.setDisplayUsers(false);
+                $scope.setDisplayRanking(false);
+            }
+        };
+
+        $scope.setDisplayRankNum = function(num) {
+            $scope.displayRankNum = num;
         };
 
         $scope.restoreData = function() {
@@ -95,17 +137,17 @@ angular.module('pkuRunnerApp')
                 $scope.users = $scope.allUsers;
             } else {
                 $scope.users = $scope.allUsers.filter(function(user) {
-                    return user.name === dept;
+                    return user.department === dept;
                 });
             }
         };
 
-        $scope.selectCourse = function(crs) {
-            if (crs === allStr) {
+        $scope.selectCourse = function(course) {
+            if (course === allStr) {
                 $scope.users = $scope.allUsers;
             } else {
                 $scope.users = $scope.allUsers.filter(function(user) {
-                    return user.course === crs;
+                    return user.course === course;
                 });
             }
         };
@@ -118,6 +160,31 @@ angular.module('pkuRunnerApp')
                     return user.teacher === tchr;
                 });
             }
+        };
+
+        $scope.searchById = function(id) {
+            if (id === null) {
+                $scope.users = $scope.allUsers;
+            } else {
+                $scope.users = $scope.allUsers.filter(function(user) {
+                    return String(user.id).includes(id);
+                });
+            }
+        };
+
+        $scope.searchByName = function(name) {
+            if (name === null) {
+                $scope.users = $scope.allUsers;
+            } else {
+                $scope.users = $scope.allUsers.filter(function(user) {
+                    return String(user.name).includes(name);
+                });
+            }
+        };
+
+        $scope.viewUser = function(id) {
+            $scope.displayUserId = id;
+            $scope.userRecords = $scope.recordsSortByUser[String(id)];
         };
 
     }])
@@ -140,4 +207,29 @@ angular.module('pkuRunnerApp')
           });
         }
       };
+    })
+    .directive('tooltip', function(){
+        var options = {
+            container: 'body',
+            html: true,
+            placement: 'auto right',
+            template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+        };
+        return {
+            restrict: 'A',
+            link: function(scope){
+                // scope.$('[data-toggle="tooltip"]').hover(function(){
+                    // on mouseenter
+                    scope.$('[data-toggle="tooltip"]').tooltip(options);
+                // }// , function(){
+                    // on mouseleave
+                    // scope.$('[data-toggle="tooltip"]').tooltip({
+                    //     container: 'body',
+                    //     html: 'true',
+                    //     placement: 'auto right'
+                    // });
+                // }
+                // );
+            }
+        };
     });
