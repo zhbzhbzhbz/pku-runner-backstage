@@ -8,7 +8,7 @@
  * Controller of the pkuRunnerApp
  */
 angular.module('pkuRunnerApp')
-    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, $state) {
+    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', 'recordFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, recordFactory, $state) {
         
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
@@ -32,5 +32,16 @@ angular.module('pkuRunnerApp')
             $state.go('app', {}, {reload: true});
         };
         
+        recordFactory.get().$promise.then(
+            function (response) {
+                var records = response.data;
+                
+                $scope.records = records;
+                $scope.recordsReady = true;
+            },
+            function (response) {
+                $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                console.log($scope.message);
+            });
 
     }]);

@@ -1,12 +1,50 @@
 <div class="container" ng-controller="StudentCtrl">
     
     <a ng-click="logout()" class="btn btn-success btn-lg btn-block" role="button">退出</a>
-    <div class="col-xs-12">
+    <!-- <div class="col-xs-12">
         <h3>id: {{userCredentials.id}}</h3>
         <h3>token: {{userCredentials.token}}</h3>
         <h3>name: {{userCredentials.name}}</h3>
         <h3>department: {{userCredentials.department}}</h3>
         <h3>isPESpecialty: {{userCredentials.isPESpecialty}}</h3>
+    </div> -->
+
+    <div class="col-xs-12" ng-if="recordsReady">
+        <table st-table="displayedRecords" st-safe-src="records" class="table table-striped">
+            <caption> {{userCredentials.name}} 的跑步记录 <a ng-click="logout()">退出</a> </caption>
+            <thead>
+                <tr>
+                    <th st-ratio="8" st-sort="recordId" st-sort-default="true" st-skip-natural="true">序号</th>
+                    <th st-ratio="15">日期</th>
+                    <th st-ratio="15">运动距离／米</th>
+                    <th st-ratio="15">运动时长／秒</th>
+                    <th st-ratio="8">步数</th>
+                    <th>已审核</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in displayedRecords">
+                    <td>{{record.recordId}}</td>
+                    <td>{{record.date | date}}</td>
+                    <td>{{record.distance}}</td>
+                    <td>{{record.duration}}</td>
+                    <td>{{record.step}}</td>
+                    <td ng-switch on="record.verified">
+                        <span ng-switch-default>未通过</span>
+                        <span ng-switch-when="true">通过</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <!-- <div st-pagination="" st-template="../templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div> -->
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
     
 </div>
