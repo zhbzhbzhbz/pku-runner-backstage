@@ -1,5 +1,5 @@
 <div class="container" ng-controller="MainCtrl">
-    <div class="marketing">
+
         <img src="../images/marketing.png" class="img-responsive" />
         <div class="container login">
             <div class="row">
@@ -15,8 +15,9 @@
         </div>
     </div>
     <div class="footer">
-        <button ui-sref="app.admin" role="button">
+        <button ng-click="openLogin()" role="button">
             <h5><u>管理员登录入口</u></h5>
         </button>
     </div>
+
 </div>
