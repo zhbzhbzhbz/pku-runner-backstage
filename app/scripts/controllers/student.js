@@ -9,7 +9,9 @@
  */
 angular.module('pkuRunnerApp')
 
-    .controller('StudentCtrl', ['$scope', '$rootScope', '$localStorage', 'AuthFactory', '$state', function ($scope, $rootScope, $localStorage, AuthFactory, $state) {     
+    .controller('StudentCtrl', ['$scope', '$localStorage', 'AuthFactory', '$state', 'statusFactory', 'recordFactory', 'ngDialog', function ($scope, $localStorage, AuthFactory, $state, statusFactory, recordFactory, ngDialog) {
+        
+
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
         
@@ -22,6 +24,10 @@ angular.module('pkuRunnerApp')
         console.log("userCredentials: ");
         console.log($scope.userCredentials);
         
+        // change the id to acquire Gao Kun access
+        //$scope.userCredentials.id = 1501212454;
+        
+        
         $scope.logout = function () {
             
             $scope.loginData = {};
@@ -32,5 +38,59 @@ angular.module('pkuRunnerApp')
             $state.go('app', {}, {reload: true});
         };
         
+        
+        $scope.status = statusFactory.get({
+            userId: $scope.userCredentials.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.status = response.data;
+                $scope.showStatus = true;
+                console.log($scope.status);
+            },
+            function (response) {
+                $scope.message = "Error: cannot get data from server!";
+            }
+        );
+        
+        $scope.records = recordFactory.get({
+            userId: $scope.userCredentials.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.records = response.data;
+                $scope.showRecords = true;
+            },
+            function (response) {
+                $scope.message = "Error: cannot get data from server!";
+            }
+        );
+        
+        $scope.getDetail = function (record) {
+            
+            console.log("click");
+            console.log(record);
+
+            $scope.records = recordFactory.get({
+                userId: $scope.userCredentials.id, recordId: record.recordId
+            })
+            .$promise.then(
+                function (response) {
+                    if(response.success) {
+                        console.log(response.data);
+                        var message = '<div class="ngdialog-message"><div><h3>Record Detail</h3></div>' +'<div><p>' + response.data.detail + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
+                        ngDialog.openConfirm({ template: message, plain: 'true'}); 
+                    }
+                    else {
+                        var message = '<div class="ngdialog-message"><div><h3>Unsuccessful to get detail</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
+                        ngDialog.openConfirm({ template: message, plain: 'true'}); 
+                    }
+                },
+                function (response) {
+                    $scope.message = "Error: cannot get data from server!";
+                }
+            );
+            
+        };
 
     }]);

@@ -4,11 +4,42 @@
 
     <div class="col-xs-12">
 
-        <h3>id: {{userCredentials.id}}</h3>
-        <h3>token: {{userCredentials.token}}</h3>
-        <h3>name: {{userCredentials.name}}</h3>
-        <h3>department: {{userCredentials.department}}</h3>
-        <h3>isPESpecialty: {{userCredentials.isPESpecialty}}</h3>
+        <h3>Student Credentials</h3>
+        <h4>id: {{userCredentials.id}}</h4>
+        <h4>token: {{userCredentials.token}}</h4>
+        <h4>name: {{userCredentials.name}}</h4>
+        <h4>department: {{userCredentials.department}}</h4>
+        <h4>isPESpecialty: {{userCredentials.isPESpecialty}}</h4>
+        <h3>Student Status</h3>
+        <h4>已经跑完的米数（Number）: {{status.current}}</h4>
+        <h4>需要完成的米数（Number, 42000/63000）: {{status.target}}</h4>
+        <h4>考勤开始的时刻（Date）: {{status.beginDate}}</h4>
+        <h4>考勤结束的时刻（Date）: {{status.endDate}}</h4>
+        <h3>所有跑步记录</h3>
+        <table st-table="records" class="table table-striped">
+	       <thead>
+	           <tr>
+                   <th>recordId</th>
+                   <th>distance</th>
+                   <th>duration</th>
+                   <th>invalidReason</th>
+                   <th>type</th>
+                   <th>step</th>
+                   <th>verified</th>
+               </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in records" ng-click="getDetail(record)">
+                    <td>{{record.recordId}}</td>
+                    <td>{{record.distance}}</td>
+                    <td>{{record.duration}}</td>
+                    <td>{{record.invalidReason}}</td>
+                    <td>{{record.type}}</td>
+                    <td>{{record.step}}</td>
+                    <td>{{record.verified}}</td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
     
