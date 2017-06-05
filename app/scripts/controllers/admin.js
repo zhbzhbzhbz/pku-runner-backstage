@@ -9,7 +9,19 @@
  */
 angular.module('pkuRunnerApp')
 
-    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', function ($scope, recordFactory, userFactory) {
+    .controller('AdminCtrl', ['$scope', 'recordFactory', 'userFactory', 'AdminAuthFactory', '$state', function ($scope, recordFactory, userFactory, AdminAuthFactory, $state) {
+        
+        $scope.adminLoggedIn = AdminAuthFactory.isAdminAuthenticated();
+        
+        console.log("adminLoggedIn: " + $scope.adminLoggedIn);
+        
+        if(!$scope.adminLoggedIn)
+            $state.go('app', {}, {reload: true});
+        
+        $scope.logout = function () {
+            AdminAuthFactory.logout();
+            $state.go('app', {}, {reload: true});
+        };
         
         $scope.itemsByPage = 10;
         $scope.displayUsers = true;
