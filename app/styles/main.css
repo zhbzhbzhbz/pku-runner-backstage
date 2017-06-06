@@ -62,12 +62,12 @@ body {
   position: absolute;
   left: 23%;
   top: 25%;
+  width: 20%;
 }
 
 .marketing button {
   background: transparent;
   border: none;
-  width: 17%;
 }
 
 .footer button {
@@ -98,6 +98,31 @@ body {
   }
 }
 
+h5 {
+  font-size: 8px;
+}
+
+/* Small devices (landscape phones) */
+@media (min-width: 544px) {
+  h5 {
+    font-size: 14px;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 768px) {
+  h5 {
+    font-size: 16px;
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 992px) {
+  h5 {
+    font-size: 18px;
+  }
+}
+
 /* Add arrow to smart-table sorting */
 .st-sort-ascent:before {
 	content: '\25B2';
@@ -123,4 +148,9 @@ body {
 }
 .searchcomponent {
   margin-right: 30px;
+}
+
+/* Table for student status */
+.status-table {
+  table-layout: fixed;
 }
