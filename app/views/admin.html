@@ -26,7 +26,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(1)}">
                 <div class="searchpanel">
-                    <span class="searchcomponent">
+                    <div class="col-xs-4">
                         按学院查询：
                         <span class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -36,15 +36,15 @@
                                 <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
                             </ul>
                         </span>
-                    </span>
-                    <span class="searchcomponent">
+                    </div>
+                    <div class="col-xs-4">
                         查询学号：
                         <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
-                    </span>
-                    <span class="searchcomponent">
+                    </div>
+                    <div class="col-xs-4">
                         查询姓名：
                         <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
-                    </span>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">
