@@ -2,7 +2,7 @@
 
 angular.module('pkuRunnerApp')
 
-        .constant("baseURL", "http://localhost:3000/")
+        .constant("baseURL", "http://pkuzone.jios.org:10201/")
 
         .factory('statusFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
@@ -128,16 +128,16 @@ angular.module('pkuRunnerApp')
                                 storeUserCredentials({id: response.data.id, token: response.data.access_token, name: response.data.name, department: response.data.department, isPESpecialty: response.data.isPESpecialty, identityType: response.data.identityType});
                                 $rootScope.$broadcast('login:Successful');
                                 if(response.data.identityType = "学生")
-                                    window.location.href="http://localhost:9000/#!/student";
+                                    window.location.href="http://pkuzone.jios.org:10201/dist/#!/student";
                                 else if(response.data.identityType = "职工")
-                                    window.location.href="http://localhost:9000/#!/faculty";
+                                    window.location.href="http://pkuzone.jios.org:10201/dist/#!/faculty";
                                 else 
                                     console.log("who you are?");
                             }
                             else {
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
                                 ngDialog.openConfirm({ template: message, plain: 'true'});
-                                window.location.href="http://localhost:9000/#!/";
+                                window.location.href="http://pkuzone.jios.org:10201/dist/";
                                 
                             }
                             
@@ -260,7 +260,7 @@ angular.module('pkuRunnerApp')
                                 storeUserCredentials({id: loginData.id, password: loginData.password});
                                 //$rootScope.$broadcast('login:Successful');
                                 console.log("ok");
-                                window.location.href="http://localhost:9000/#!/admin";
+                                window.location.href="http://pkuzone.jios.org:10201/dist/#!/admin";
                             }
                             else {
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
@@ -286,7 +286,7 @@ angular.module('pkuRunnerApp')
                 $resource(baseURL + "admin/logout").get(function(response){
                 });
                 destroyUserCredentials();
-                window.location.href="http://localhost:9000/#!/";
+                window.location.href="http://pkuzone.jios.org:10201/dist/";
             };
     
     
