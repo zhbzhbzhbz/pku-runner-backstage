@@ -137,11 +137,9 @@ angular.module('pkuRunnerApp')
                             else {
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
                                 ngDialog.openConfirm({ template: message, plain: 'true'});
-<<<<<<< HEAD
-                                window.location.href="http://pkuzone.jios.org:10201/dist/#!/";
-=======
+
                                 window.location.href="http://pkuzone.jios.org:10201/dist/";
->>>>>>> 9fa1f9525ca9275ecb3f17dcd68aa02c855281a6
+
                                 
                             }
                             
