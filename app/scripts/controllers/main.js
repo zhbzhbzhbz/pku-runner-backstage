@@ -66,9 +66,7 @@ angular.module('pkuRunnerApp')
                 document.write("<form action='https://iaaa.pku.edu.cn/iaaa/oauth.jsp' method=post name='formx1' style='display:none'>");
                 document.write("<input type=hidden name='appID' value='PKU_Runner'>");
                 document.write("<input type=hidden name='appName' value='PKU Runner APP'>");
-=======
-                document.write("<input type=hidden name='redirectUrl' value='http://pkuzone.jios.org:10201/dist/'>");
->>>>>>> b23cef44bc0ba43cc2780ab169eafcda7e197028
+                document.write("<input type=hidden name='redirectUrl' value='http://localhost:9000/'>");
                 document.write("</form>");
                 document.formx1.submit();
             }

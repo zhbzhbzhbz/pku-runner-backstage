@@ -149,8 +149,3 @@ h5 {
 .searchcomponent {
   margin-right: 30px;
 }
-
-/* Table for student status */
-.status-table {
-  table-layout: fixed;
-}
