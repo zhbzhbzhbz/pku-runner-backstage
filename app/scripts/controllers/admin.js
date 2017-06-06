@@ -72,11 +72,11 @@ angular.module('pkuRunnerApp')
                     // Add to total distance of user
                     // Only add if record is verified
                     if (records[i].verified) {
-                        if (userDistance.hasOwnProperty(userIdString)) {
-                            userDistance[userIdString] += records[i].distance;
+                        if ($scope.userDistance.hasOwnProperty(userIdString)) {
+                            $scope.userDistance[userIdString] += records[i].distance;
                         }
                         else {
-                            userDistance[userIdString] = records[i].distance;
+                            $scope.userDistance[userIdString] = records[i].distance;
                         }
                     }
                 }
