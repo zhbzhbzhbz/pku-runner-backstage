@@ -119,6 +119,7 @@ angular.module('pkuRunnerApp')
                 $scope.setDisplayRanking(false);
                 $scope.setDisplayRecords(false);
             }
+            $scope.users = $scope.allUsers;
         };
 
         $scope.setDisplayRanking = function(show) {
@@ -127,6 +128,7 @@ angular.module('pkuRunnerApp')
                 $scope.setDisplayUsers(false);
                 $scope.setDisplayRecords(false);
             }
+            $scope.users = $scope.allUsers;
         };
 
         $scope.setDisplayRecords = function(show) {
