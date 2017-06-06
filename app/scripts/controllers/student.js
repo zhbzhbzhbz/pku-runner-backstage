@@ -77,7 +77,7 @@ angular.module('pkuRunnerApp')
             console.log("click");
             console.log(record);
 
-            $scope.records = recordFactory.get({
+            $scope.recordDetails = recordFactory.get({
                 userId: $scope.userCredentials.id, recordId: record.recordId
             })
             .$promise.then(
