@@ -1,32 +1,74 @@
 <div class="container" ng-controller="StudentCtrl">
     
-    <a ng-click="logout()" class="btn btn-success btn-lg btn-block" role="button">退出</a>
-
     <div class="col-xs-12">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li role="presentation">
+                <p class="navbar-text text-center">
+                    您已登录：{{userCredentials.name}} 同学
+                    <a ng-click="logout()" role="button">退出</a>
+                </p>
+            </li>
+        </ul>
 
-        <h3>Student Credentials</h3>
-        <h4>id: {{userCredentials.id}}</h4>
-        <h4>token: {{userCredentials.token}}</h4>
-        <h4>name: {{userCredentials.name}}</h4>
-        <h4>department: {{userCredentials.department}}</h4>
-        <h4>isPESpecialty: {{userCredentials.isPESpecialty}}</h4>
-        <h4>identityType: {{userCredentials.identityType}}</h4>
-        <h3>Student Status</h3>
-        <h4>已经跑完的米数（Number）: {{status.current}}</h4>
-        <h4>需要完成的米数（Number, 42000/63000）: {{status.target}}</h4>
-        <h4>考勤开始的时刻（Date）: {{status.beginDate}}</h4>
-        <h4>考勤结束的时刻（Date）: {{status.endDate}}</h4>
-        <h3>所有跑步记录</h3>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:true}">
+                <!-- Status -->
+                <div class="col-xs-12">
+                    <h5>您的进度：</h5>
+                    <!-- Progress Bar -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            60%
+                        </div>
+                    </div>
+                    <div class="col-xs-12" ng-if="!showStatus">
+                        <h3>{{message}}</h3>
+                    </div>
+                    <div class="table-responsive" ng-if="showStatus">
+                        <table class="table table-bordered status-table">
+                            <tr>
+                                <td class="info">已跑里程（米）</td>
+                                <td>{{status.current}}</td>
+                                <td class="info">剩余里程（米）</td>
+                                <td>{{status.target}}</td>
+                            </tr>
+                            <tr>
+                                <td class="warning">考勤开始日期</td>
+                                <td>{{status.beginDate}}</td>
+                                <td class="warning">考勤结束日期</td>
+                                <td>{{status.endDate}}</td>
+                            </tr>
+                            <tr>
+                                <td class="success">学号</td>
+                                <td>{{userCredentials.id}}</td>
+                                <td class="success">学院</td>
+                                <td>{{userCredentials.department}}</td>
+                            </tr>
+                            <tr>
+                                <td class="info">体育课</td>
+                                <td>需要学生选课信息</td>
+                                <td class="info">老师</td>
+                                <td>需要学生选课信息</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- Records Table -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12">
         <table st-table="records" class="table table-striped">
+            <caption>所有跑步记录</caption>
 	       <thead>
 	           <tr>
-                   <th>recordId</th>
-                   <th>distance</th>
-                   <th>duration</th>
-                   <th>invalidReason</th>
-                   <th>type</th>
-                   <th>step</th>
-                   <th>verified</th>
+                   <th>序号</th>
+                   <th>运动距离／米</th>
+                   <th>运动时长／秒</th>
+                   <th>步数</th>
+                   <th>已审核</th>
                </tr>
             </thead>
             <tbody>
@@ -34,10 +76,11 @@
                     <td>{{record.recordId}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
-                    <td>{{record.invalidReason}}</td>
-                    <td>{{record.type}}</td>
                     <td>{{record.step}}</td>
-                    <td>{{record.verified}}</td>
+                    <td ng-switch on="record.verified">
+                        <span ng-switch-default>未通过</span>
+                        <span ng-switch-when="true">通过</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

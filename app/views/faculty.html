@@ -1,12 +1,30 @@
 <div class="container" ng-controller="StudentCtrl">
     
-    <a ng-click="logout()" class="btn btn-success btn-lg btn-block" role="button">退出</a>
+    <div class="col-xs-12">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li role="presentation">
+                <p class="navbar-text text-center">
+                    您已登录：{{userCredentials.name}} 老师
+                    <a ng-click="logout()" role="button">退出</a>
+                </p>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane"  ng-class="{active:true}">
+                <h4>已经跑完的米数（Number）: {{status.current}}</h4>
+        <h4>需要完成的米数（Number, 42000/63000）: {{status.target}}</h4>
+        
+            </div>
+        </div>
+    </div>
 
     <div class="col-xs-12">
 
         <h3>欢迎来到教职工界面</h3>
         <h4>您的职工号: {{userCredentials.id}}</h4>
-        <!--- <h4>token: {{userCredentials.token}}</h4> --->
+        <!--- <h4>token: {{userCredentials.token}}</h4> -->
         <h4>您的名字: {{userCredentials.name}}</h4>
         <h4>您所在的部门: {{userCredentials.department}}</h4>
         <h4>您的身份: {{userCredentials.identityType}}</h4>

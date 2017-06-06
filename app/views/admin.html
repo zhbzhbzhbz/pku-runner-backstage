@@ -1,8 +1,13 @@
 <div class="container" ng-controller="AdminCtrl">
     
-    <a ng-click="logout()" class="btn btn-success btn-lg btn-block" role="button">退出</a>
     <div class="col-xs-12">
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li role="presentation"  class="navbar-text text-center">
+                <p>
+                    您已登录：管理员
+                    <a ng-click="logout()" role="button">退出</a>
+                </p>
+            </li>
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     查询 <span class="caret"></span>
