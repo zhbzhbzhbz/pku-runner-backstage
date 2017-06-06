@@ -11,7 +11,12 @@ angular.module('pkuRunnerApp')
 
     .controller('StudentCtrl', ['$scope', '$localStorage', 'AuthFactory', '$state', 'statusFactory', 'recordFactory', 'ngDialog', function ($scope, $localStorage, AuthFactory, $state, statusFactory, recordFactory, ngDialog) {
         
-
+        // testing only
+        // $scope.current = 13456;
+        // $scope.target = 42000;
+        // $scope.percentage = (100 * $scope.current / $scope.target).toFixed(2);
+        $scope.percentage = 0;
+        $scope.itemsByPage = 10;
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
         
@@ -45,6 +50,7 @@ angular.module('pkuRunnerApp')
         .$promise.then(
             function (response) {
                 $scope.status = response.data;
+                $scope.percentage = (100 * $scope.status.current / $scope.status.target).toFixed(2);
                 $scope.showStatus = true;
                 console.log($scope.status);
             },
@@ -71,7 +77,7 @@ angular.module('pkuRunnerApp')
             console.log("click");
             console.log(record);
 
-            $scope.records = recordFactory.get({
+            $scope.recordDetails = recordFactory.get({
                 userId: $scope.userCredentials.id, recordId: record.recordId
             })
             .$promise.then(

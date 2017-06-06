@@ -18,15 +18,15 @@
                     <h5>您的进度：</h5>
                     <!-- Progress Bar -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            60%
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage }}%;">
+                            {{ percentage }}%
                         </div>
                     </div>
-                    <div class="col-xs-12" ng-if="!showStatus">
+                    <!-- <div class="col-xs-12" ng-if="!showStatus">
                         <h3>{{message}}</h3>
-                    </div>
-                    <div class="table-responsive" ng-if="showStatus">
-                        <table class="table table-bordered status-table">
+                    </div> -->
+                    <div class="table-responsive">
+                        <table st-table="status" class="table table-bordered status-table">
                             <tr>
                                 <td class="info">已跑里程（米）</td>
                                 <td>{{status.current}}</td>
@@ -35,9 +35,9 @@
                             </tr>
                             <tr>
                                 <td class="warning">考勤开始日期</td>
-                                <td>{{status.beginDate}}</td>
+                                <td>{{status.beginDate | date}}</td>
                                 <td class="warning">考勤结束日期</td>
-                                <td>{{status.endDate}}</td>
+                                <td>{{status.endDate | date}}</td>
                             </tr>
                             <tr>
                                 <td class="success">学号</td>
@@ -73,7 +73,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="record in records" ng-click="getDetail(record)">
-                    <td>{{record.recordId}}</td>
+                    <td>{{record.recordId + 1}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
                     <td>{{record.step}}</td>
@@ -83,6 +83,15 @@
                     </td>
                 </tr>
             </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination="" st-template="./templates/pagination.custom.html" st-items-by-page="itemsByPage">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 
     </div>

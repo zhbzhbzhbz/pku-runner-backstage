@@ -2,7 +2,7 @@
 
 angular.module('pkuRunnerApp')
 
-        .constant("baseURL","http://pkuzone.jios.org:10201/")
+        .constant("baseURL", "http://pkuzone.jios.org:10201/")
 
         .factory('statusFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
             
@@ -137,7 +137,9 @@ angular.module('pkuRunnerApp')
                             else {
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
                                 ngDialog.openConfirm({ template: message, plain: 'true'});
+
                                 window.location.href="http://pkuzone.jios.org:10201/dist/";
+
                                 
                             }
                             
@@ -286,7 +288,7 @@ angular.module('pkuRunnerApp')
                 $resource(baseURL + "admin/logout").get(function(response){
                 });
                 destroyUserCredentials();
-                window.location.href="http://pkuzone.jios.org:10201/dist/";
+                window.location.href="http://pkuzone.jios.org:10201/dist/#!/";
             };
     
     

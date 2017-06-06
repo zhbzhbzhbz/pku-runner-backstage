@@ -38,6 +38,10 @@ angular.module('pkuRunnerApp')
         $scope.allCourses = [];
         $scope.allTeachers = [];
         $scope.userRecords = [];
+        $scope.userDistance = {};
+        $scope.idToString = function(id) {
+            return String(id);
+        };
 
         const allStr = '------全部------';
         $scope.message='Loading ...';
@@ -65,6 +69,16 @@ angular.module('pkuRunnerApp')
                         recordsSortByUser[userIdString] = [];
                     }
                     recordsSortByUser[userIdString].push(records[i]);
+                    // Add to total distance of user
+                    // Only add if record is verified
+                    if (records[i].verified) {
+                        if ($scope.userDistance.hasOwnProperty(userIdString)) {
+                            $scope.userDistance[userIdString] += records[i].distance;
+                        }
+                        else {
+                            $scope.userDistance[userIdString] = records[i].distance;
+                        }
+                    }
                 }
                 
                 $scope.recordsSortByUser = recordsSortByUser;
@@ -119,6 +133,7 @@ angular.module('pkuRunnerApp')
                 $scope.setDisplayRanking(false);
                 $scope.setDisplayRecords(false);
             }
+            $scope.users = $scope.allUsers;
         };
 
         $scope.setDisplayRanking = function(show) {
@@ -127,6 +142,7 @@ angular.module('pkuRunnerApp')
                 $scope.setDisplayUsers(false);
                 $scope.setDisplayRecords(false);
             }
+            $scope.users = $scope.allUsers;
         };
 
         $scope.setDisplayRecords = function(show) {
