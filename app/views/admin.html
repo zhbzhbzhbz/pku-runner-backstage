@@ -48,54 +48,54 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(2)}">
-                <div class="searchpanel" ng-if="displayUsers">
-                    <span class="searchcomponent">
-                    按课程查询：
-                    <span class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            选择课程 <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="course in allCourses"><a ng-click="selectCourse(course)">{{course}}</a></li>
-                        </ul>
-                    </span>
-                    </span>
-                    <span class="searchcomponent">
-                    查询学号：
-                    <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
-                    </span>
-                    <span class="searchcomponent">
-                    查询姓名：
-                    <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
-                    </span>
+                <div class="searchpanel">
+                    <div class="col-xs-4">
+                        按课程查询：
+                        <span class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                选择课程 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="course in allCourses"><a ng-click="selectCourse(course)">{{course}}</a></li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="col-xs-4">
+                        查询学号：
+                        <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
+                    </div>
+                    <div class="col-xs-4">
+                        查询姓名：
+                        <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(3)}">
-                <div class="searchpanel" ng-if="displayUsers">
-                    <span class="searchcomponent">
-                    按老师查询：
-                    <span class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            选择老师 <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="teacher in allTeachers"><a ng-click="selectTeacher(teacher)">{{teacher}}</a></li>
-                        </ul>
-                    </span>
-                    </span>
-                    <span class="searchcomponent">
-                    查询学号：
-                    <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
-                    </span>
-                    <span class="searchcomponent">
-                    查询姓名：
-                    <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
-                    </span>
+                <div class="searchpanel">
+                    <div class="col-xs-4">
+                        按老师查询：
+                        <span class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                选择老师 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="teacher in allTeachers"><a ng-click="selectTeacher(teacher)">{{teacher}}</a></li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="col-xs-4">
+                        查询学号：
+                        <input type="number" ng-model="id" placeholder="1400000000" ng-change="searchById(id)" />
+                    </div>
+                    <div class="col-xs-4">
+                        查询姓名：
+                        <input type="text" ng-model="name" placeholder="张一" ng-change="searchByName(name)" />
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(4)}">
-                <div class="searchpanel" ng-if="displayUsers">
-                    <span class="searchcomponent">
+                <div class="searchpanel">
+                    <div class="col-xs-6">
                         按学院筛选：
                         <span class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -105,8 +105,8 @@
                                 <li ng-repeat="department in allDepartments"><a ng-click="selectDepartment(department)">{{department}}</a></li>
                             </ul>
                         </span>
-                    </span>
-                    <span class="searchcomponent">
+                    </div>
+                    <div class="col-xs-6">
                         显示：
                         <span class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -119,7 +119,7 @@
                                 <li><a ng-click="setDisplayRankNum(100)">前100条数据</a></li>
                             </ul>
                         </span>
-                    </span>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">
@@ -147,7 +147,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑km 剩余km" ng-click="viewUser(user.id); setDisplayRecords(true)">
+                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑{{userDistance[idToString(user.id)]}}km 剩余km" ng-click="viewUser(user.id); setDisplayRecords(true)">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
@@ -200,7 +200,7 @@
                         <span ng-switch-when="2">女</span>
                     </td>
                     <td>{{user.department}}</td>
-                    <td></td>
+                    <td>{{userDistance[idToString(user.id)]}}</td>
                 </tr>
             </tbody>
             <tfoot>
