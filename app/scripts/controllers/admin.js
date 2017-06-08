@@ -38,7 +38,7 @@ angular.module('pkuRunnerApp')
         $scope.allCourses = [];
         $scope.allTeachers = [];
         $scope.userRecords = [];
-        $scope.userDistance = {};
+        // $scope.userDistance = {};
         $scope.idToString = function(id) {
             return String(id);
         };
@@ -71,14 +71,14 @@ angular.module('pkuRunnerApp')
                     recordsSortByUser[userIdString].push(records[i]);
                     // Add to total distance of user
                     // Only add if record is verified
-                    if (records[i].verified) {
-                        if ($scope.userDistance.hasOwnProperty(userIdString)) {
-                            $scope.userDistance[userIdString] += records[i].distance;
-                        }
-                        else {
-                            $scope.userDistance[userIdString] = records[i].distance;
-                        }
-                    }
+                    // if (records[i].verified) {
+                    //     if ($scope.userDistance.hasOwnProperty(userIdString)) {
+                    //         $scope.userDistance[userIdString] += records[i].distance;
+                    //     }
+                    //     else {
+                    //         $scope.userDistance[userIdString] = records[i].distance;
+                    //     }
+                    // }
                 }
                 
                 $scope.recordsSortByUser = recordsSortByUser;
@@ -113,12 +113,12 @@ angular.module('pkuRunnerApp')
                     if (users[i].teacher !== undefined) {
                         allTeachers.add(users[i].teacher);
                     }
-                    if (users[i].currentDistance !== undefined) {
-                        users[i].current = users[i].currentDistance;
-                    }
-                    else {
-                        users[i].current = 0;
-                    }
+                    // if (users[i].currentDistance !== undefined) {
+                    //     users[i].current = users[i].currentDistance;
+                    // }
+                    // else {
+                    //     users[i].current = 0;
+                    // }
                 }
 
                 $scope.users = users;

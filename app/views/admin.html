@@ -137,17 +137,18 @@
             <caption>查询结果（点击表头可以排序）</caption>
             <thead>
                 <tr>
-                    <th st-ratio="15" st-sort="id" st-sort-default="true" st-skip-natural="true">学号</th>
+                    <th st-ratio="13" st-sort="id" st-sort-default="true" st-skip-natural="true">学号</th>
                     <th st-ratio="13">姓名</th>
-                    <th st-ratio="8" st-sort="sex">性别</th>
-                    <th st-ratio="22" st-sort="department" st-skip-natural="true">学院</th>
-                    <th st-ratio="22" st-sort="course" st-skip-natural="true">课程</th>
+                    <th st-ratio="5" st-sort="sex">性别</th>
+                    <th st-ratio="20" st-sort="department" st-skip-natural="true">学院</th>
+                    <th st-ratio="20" st-sort="course" st-skip-natural="true">课程</th>
                     <th st-ratio="5">班号</th>
-                    <th st-sort="teacher" st-skip-natural="true">教师</th>
+                    <th st-ratio="13" st-sort="teacher" st-skip-natural="true">教师</th>
+                    <th st-sort="currentDistance" st-skip-natural="true">已跑里程</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑{{user.current}}m 剩余{{user.target - user.current}}m" ng-click="viewUser(user.id); setDisplayRecords(true)">
+                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑{{user.currentDistance}}m 奖励{{user.bonusDistance}}m" ng-click="viewUser(user.id); setDisplayRecords(true)">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
@@ -159,6 +160,7 @@
                     <td>{{user.course}}</td>
                     <td>{{user.courseId}}</td>
                     <td>{{user.teacher}}</td>
+                    <td>{{user.currentDistance}}</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -186,7 +188,7 @@
                     <th st-ratio="13">姓名</th>
                     <th st-ratio="8">性别</th>
                     <th st-ratio="22">学院</th>
-                    <th st-sort="current" st-sort-default="true" st-skip-natural="true">已跑里程</th>
+                    <th st-sort="currentDistance" st-sort-default="true" st-skip-natural="true">已跑里程</th>
                 </tr>
             </thead>
             <tbody>
@@ -200,7 +202,7 @@
                         <span ng-switch-when="2">女</span>
                     </td>
                     <td>{{user.department}}</td>
-                    <td>{{user.current}}</td>
+                    <td>{{user.currentDistance}}</td>
                 </tr>
             </tbody>
             <tfoot>
