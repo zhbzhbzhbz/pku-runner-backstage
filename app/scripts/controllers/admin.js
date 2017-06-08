@@ -84,7 +84,14 @@ angular.module('pkuRunnerApp')
                 $scope.recordsSortByUser = recordsSortByUser;
                 $scope.recordTableReady = true;
                 
-        //get users after get records        
+            },
+            function (response) {
+                $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                console.log($scope.message);
+            });
+        
+        $scope.userTableReady = false;
+        
         adminUserFactory.get().$promise.then(
             function (response) {
                 var users = response.data;
@@ -106,9 +113,8 @@ angular.module('pkuRunnerApp')
                     if (users[i].teacher !== undefined) {
                         allTeachers.add(users[i].teacher);
                     }
-                    var userIdString = String(users[i].id);
-                    if ($scope.userDistance[userIdString] !== undefined) {
-                        users[i].current = $scope.userDistance[userIdString];
+                    if (users[i].currentDistance !== undefined) {
+                        users[i].current = users[i].currentDistance;
                     }
                     else {
                         users[i].current = 0;
@@ -127,18 +133,6 @@ angular.module('pkuRunnerApp')
                 console.log($scope.messageB);
             }
         );
-                
-                
-                
-            },
-            function (response) {
-                $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
-                console.log($scope.message);
-            });
-        
-        $scope.userTableReady = false;
-        
-        
 
         $scope.setDisplayUsers = function(show) {
             $scope.displayUsers = show;
