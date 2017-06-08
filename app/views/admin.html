@@ -106,7 +106,7 @@
                             </ul>
                         </span>
                     </div>
-                    <div class="col-xs-6">
+<!--                   <div class="col-xs-6">
                         显示：
                         <span class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -119,7 +119,7 @@
                                 <li><a ng-click="setDisplayRankNum(100)">前100条数据</a></li>
                             </ul>
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane"  ng-class="{active:isSelected(5)}">
@@ -147,7 +147,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑{{userDistance[idToString(user.id)]}}km 剩余km" ng-click="viewUser(user.id); setDisplayRecords(true)">
+                <tr ng-repeat="user in displayedData" data-toggle="tooltip" title="{{user.id}} 已跑{{user.current}}m 剩余{{user.target - user.current}}m" ng-click="viewUser(user.id); setDisplayRecords(true)">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
@@ -178,20 +178,20 @@
     </div>
     <div class="col-xs-12" ng-if="userTableReady && displayRanking">
         <table st-table="displayedRanking" st-safe-src="users" class="table table-striped">
-            <caption>当前排名（显示前 {{displayRankNum}} 条数据）</caption>
+<!--              <caption>当前排名（显示前 {{displayRankNum}} 条数据）</caption> -->
             <thead>
                 <tr>
-                    <th st-ratio="5">名次</th>
+<!--                     <th st-ratio="5">名次</th>    -->
                     <th st-ratio="15">学号</th>
                     <th st-ratio="13">姓名</th>
                     <th st-ratio="8">性别</th>
                     <th st-ratio="22">学院</th>
-                    <th>总里程</th>
+                    <th st-sort="current" st-sort-default="true" st-skip-natural="true">已跑里程</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="user in displayedRanking">
-                    <td>{{$index + 1}}</td>
+<!--                    <td>{{$index + 1}}</td> -->
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td ng-switch on="user.sex">
@@ -200,7 +200,7 @@
                         <span ng-switch-when="2">女</span>
                     </td>
                     <td>{{user.department}}</td>
-                    <td>{{userDistance[idToString(user.id)]}}</td>
+                    <td>{{user.current}}</td>
                 </tr>
             </tbody>
             <tfoot>
