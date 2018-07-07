@@ -5,7 +5,7 @@ version 0.15.1.
 
 ## Build & development
 
-Use `npm install` to install needed modules.
+Use `npm install` and `bower install` to install needed modules.
 
 If you encounter some problem, you can first try the solution in this [issue](https://github.com/cnmozzie/pku-runner-backstage/issues/3). If there are new problems, you can raise a new issue.
 
