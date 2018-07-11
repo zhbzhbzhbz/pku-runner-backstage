@@ -13,29 +13,29 @@ angular.module('pkuRunnerApp')
 
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.adminLoggedIn = AdminAuthFactory.isAdminAuthenticated();
-        
+
         console.log("loggedIn: " + $scope.loggedIn);
         console.log("adminLoggedIn: " + $scope.adminLoggedIn);
 
-        
+
         if($scope.loggedIn) {
             $state.go('app.student', {}, {reload: true});
         }
 
-        
+
         if($scope.adminLoggedIn) {
             $state.go('app.admin', {}, {reload: true});
         }
 
-        
+
         $scope.userCredentials = $localStorage.getObject('userinfo','{}');
         console.log("userCredentials: ");
         console.log($scope.userCredentials);
-                             
+
         var url = $location.absUrl();
         var token = "";
-        
-        
+
+
         if(url.indexOf("token=") < 0) {
             console.log("normal state!");
         }
@@ -45,17 +45,17 @@ angular.module('pkuRunnerApp')
             console.log(token);
             $scope.loginData = {};
             $scope.loginData.access_token = token;
-            AuthFactory.login($scope.loginData);                
+            AuthFactory.login($scope.loginData);
 
-            
+
             //if($scope.rememberMe)
                 //$localStorage.storeObject('userinfo',$scope.loginData);
         }
-            
-  
-        
+
+
+
         $scope.gotoIAAA = function () {
-            
+
             $scope.userCredentials = $localStorage.getObject('userinfo','{}');
             console.log("userCredentials: ");
             console.log($scope.userCredentials);
@@ -66,17 +66,17 @@ angular.module('pkuRunnerApp')
                 document.write("<form action='https://iaaa.pku.edu.cn/iaaa/oauth.jsp' method=post name='formx1' style='display:none'>");
                 document.write("<input type=hidden name='appID' value='PKU_Runner'>");
                 document.write("<input type=hidden name='appName' value='PKU Runner APP'>");
-                document.write("<input type=hidden name='redirectUrl' value='http://pkuzone.jios.org:10201/dist/'>");
+                document.write("<input type=hidden name='redirectUrl' value='https://pkunewyouth.pku.edu.cn/public/dist'>");
                 document.write("</form>");
                 document.formx1.submit();
             }
-            
+
         };
 
         $scope.openLogin = function () {
             ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default', controller:"LoginCtrl" });
         };
-        
-        
-    
+
+
+
 }]);

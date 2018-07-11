@@ -128,9 +128,9 @@ angular.module('pkuRunnerApp')
                                 storeUserCredentials({id: response.data.id, token: response.data.access_token, name: response.data.name, department: response.data.department, isPESpecialty: response.data.isPESpecialty, identityType: response.data.identityType});
                                 $rootScope.$broadcast('login:Successful');
                                 if(response.data.identityType = "学生")
-                                    window.location.href="http://pkuzone.jios.org:10201/dist/#!/student";
+                                    window.location.href="https://pkunewyouth.pku.edu.cn/public/dist/#!/student";
                                 else if(response.data.identityType = "职工")
-                                    window.location.href="http://pkuzone.jios.org:10201/dist/#!/faculty";
+                                    window.location.href="https://pkunewyouth.pku.edu.cn/public/dist/#!/faculty";
                                 else
                                     console.log("who you are?");
                             }
@@ -138,7 +138,7 @@ angular.module('pkuRunnerApp')
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
                                 ngDialog.openConfirm({ template: message, plain: 'true'});
 
-                                window.location.href="http://pkuzone.jios.org:10201/dist/";
+                                window.location.href="https://pkunewyouth.pku.edu.cn/public/dist/";
 
 
                             }
@@ -229,19 +229,19 @@ angular.module('pkuRunnerApp')
                             else {
                                 var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.code + '</p><p>' + response.message + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
                                 ngDialog.openConfirm({ template: message, plain: 'true'});
-                                
+
                             }
-                            
+
                           },
                           function(response){
                             console.log(response);
                             isAdminAuthenticated = false;
-            
+
                             var message = '<div class="ngdialog-message"><div><h3>Login Unsuccessful</h3></div>' +'<div><p>' +  response.data.err.message + '</p><p>' + response.data.err.name + '</p></div>' + '<div class="ngdialog-buttons"><button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button></div>';
-            
+
                             ngDialog.openConfirm({ template: message, plain: 'true'});
                           }
-        
+
                          );
 
 
