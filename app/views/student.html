@@ -1,5 +1,5 @@
 <div class="container" ng-controller="StudentCtrl">
-    
+
     <div class="col-xs-12">
         <ul class="nav nav-tabs nav-justified" role="tablist">
             <li role="presentation">
@@ -51,6 +51,12 @@
                                 <td class="info">老师</td>
                                 <td>需要学生选课信息</td>
                             </tr>
+                            <tr>
+                              <td class="warning">跑步有效次数</td>
+                              <td>{{status.validCount}}</td>
+                              <td class="warning">奖励里程</td>
+                              <td>{{status.bonus}}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -58,7 +64,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-xs-12">
         <table st-table="records" class="table table-striped">
             <caption>所有跑步记录</caption>
@@ -67,6 +73,7 @@
                    <th>序号</th>
                    <th>运动距离／米</th>
                    <th>运动时长／秒</th>
+                   <th>跑步日期</th>
                    <th>步数</th>
                    <th>已审核</th>
                </tr>
@@ -76,6 +83,7 @@
                     <td>{{record.recordId + 1}}</td>
                     <td>{{record.distance}}</td>
                     <td>{{record.duration}}</td>
+                    <td>{{record.date | date}}</td>
                     <td>{{record.step}}</td>
                     <td ng-switch on="record.verified">
                         <span ng-switch-default>未通过</span>
@@ -95,5 +103,5 @@
         </table>
 
     </div>
-    
+
 </div>
