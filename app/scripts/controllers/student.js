@@ -50,7 +50,10 @@ angular.module('pkuRunnerApp')
         .$promise.then(
             function (response) {
                 $scope.status = response.data;
-                $scope.percentage = (100 * $scope.status.current / $scope.status.target).toFixed(2);
+                $scope.remain = $scope.status.target - $scope.status.current - $scope.status.bonus;
+                if ($scope.remain < 0)
+                  $scope.remain = 0;
+                $scope.percentage = (100 - 100 * $scope.remain / $scope.status.target).toFixed(2);
                 $scope.showStatus = true;
                 console.log("status: ");
                 console.log($scope.status);
